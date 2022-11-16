@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Session </title>
+</head>
+<body>
+<h1>Welcome {{name}} {{mname}}</h1><hr>
+
+{% for i in keys %}
+<h2>{{i}}</h2><br>
+{% endfor %}<hr>
+
+{% for i,j in items %}
+<h2>{{i}}:{{j}}</h2><br>
+{% endfor %}<hr>
+
+<h2>{{age}}</h2>
+{{request.session.get_session_cookie_age}}
+{{request.session.get_expiry_age}}
+{{request.session.get_expiry_date}}
+{{request.session.get_expire_at_browser_close}}
+
+{{request.session.test_cookie_worked}}
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile Page...!!</title>
+    <link rel="stylesheet" href="{% static  'css/bootstrap.min.css' %}">
+    <style>
+    .success{
+    color:green;
+    }
+        .er{
+  color:red;
+  }
+</style>
+</head>
+<body bgcolor="cyan">
+<h1> Welcome to Profile Page</h1>
+ <h3>Welcome {{name}}</h3>
+<h3> Your Ip Address is : {{ip}}</h3>
+
+
+<div>
+  <h5>{{full_name}}</h5>
+  {% for group in groups %}
+    <p>{{group.name}}</p>
+  {% endfor %}
+  <button type="button" class="btn btn-danger mt-3">
+  Login Times <span class="badge badge-light">{{ct}}</span>
+  </button>
+</div>
+<br>
+
+{% if perms.Blogging.delete_blog %}
+  <input type="button" value="Delete"> <br><br>
+{% else %}
+  <h3>No Delete Permission</h3>
+{% endif %}
+
+{% if perms.Blogging.add_blog %}
+  <input type="button" value="Add"> <br><br>
+{% else %}
+  <h3>No Add Permission</h3>
+{% endif %}
+ {% if messages %}
+  {% for message in messages %}
+   <small {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</small>
+  {% endfor %}
+ {% endif %}
+
+<form action="" method="post" novalidate>
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+       <p>{{ error }}</p>
+    {% endfor %}
+  {% endif %}
+
+  {% for fm in form %}
+   {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br> <br>
+  {% endfor %}
+  <input type="submit"  class="btn btn-primary" value="Save"><br><br>
+ </form>
+ <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+ <a href="{% url 'home' %}" class="btn btn-info">Home</a>
+</body>
+</html>
